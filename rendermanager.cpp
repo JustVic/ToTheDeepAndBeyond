@@ -8,7 +8,7 @@ RenderManager::RenderManager()
 	SDL_Init(SDL_INIT_EVERYTHING);
 	SDL_GetDisplayBounds(0, &srect);
 
-	width = 250;//srect.w;
+	width = srect.w;
 	height = srect.h;
 
 	cellWidth = width/20;
