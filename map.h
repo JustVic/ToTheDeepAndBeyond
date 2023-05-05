@@ -2,7 +2,6 @@
 #define map_h
 
 #include "gamestate.h"
-#include "CAnimation.h"
 #include <time.h>
 #include <map>
 #include "enemy.h"
@@ -12,8 +11,6 @@
 //#include <iostream>
 #include <utility>
 #include <functional>
-
-#include "monster.h"
 
 enum bulletType { SIMPLE, ARMOR, ROCKET };
 enum type { WALL, TELEPORT, FLOOR, NOM_NOM, CONNECTOR };
@@ -136,8 +133,6 @@ class Map
 		double cellWidth;
 
 		//int _currentRegion;
-
-		std::vector<Monster*> monsters;
 
 		std::vector<Block> _regions;
 

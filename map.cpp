@@ -74,7 +74,6 @@ Map::Map(GameEngine* game, Player* player)
 		nextRooms.clear();
 		nextFreeMap.clear();
 		enemies.clear();
-		monsters.clear();
 
     		GenerateNewLevel(game, 0, &nextFreeMap, nextLevelMap, &nextRooms);
 
@@ -99,7 +98,6 @@ Map::Map(GameEngine* game, Player* player)
 Map::~Map()//+
 {
 	delete currentMap;
-	delete nextLevelMap;
 }
 
 int Map::GenerateNewLevel(GameEngine* game, int n, std::vector<SDL_Rect>* freeMap, int* map, std::vector<SDL_Rect>* _rooms)//+
@@ -389,9 +387,6 @@ unsigned int Map::ArrangeEnemies(GameEngine* game, std::vector<SDL_Rect>* freeMa
 			enem1.SetMind(common);
 
 			enemies->push_back(enem1);
-
-			//Monster *monster = new Monster(game,rect1.x*cellWidth+cellWidth/4,rect1.y*cellWidth+cellWidth/4, cellWidth);
-			//monsters.push_back(monster);
 		}
 
 	}
@@ -1439,7 +1434,6 @@ void Map::Update(GameEngine* game, Player* player, float dt)
 		nextRooms.clear();
 		nextFreeMap.clear();
 		enemies.clear();
-		monsters.clear();
 		GenerateNewLevel(game, 0, &nextFreeMap, nextLevelMap, &nextRooms);
 
 		int total = nextFreeMap.size();

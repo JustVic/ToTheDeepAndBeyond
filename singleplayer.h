@@ -2,11 +2,9 @@
 #define singleplayer_h
 
 #include "gamestate.h"
-#include "CAnimation.h"
 #include <time.h>
 #include <map>
 
-#include "monster.h"
 #include "map.h"
 
 //enum bulletType { SIMPLE, ARMOR, ROCKET };
@@ -39,7 +37,7 @@ class Singleplayer : public GameState
 	    	SDL_RWops* save_file;
 
 		Map* map;
-
+
 		bool end_save_flag;
 
 	    	bool stop;
@@ -82,7 +80,11 @@ class Singleplayer : public GameState
 	    	std::shared_ptr<SDL_Texture> orange_texture;
 
 	public:
+		Singleplayer();
+		~Singleplayer();
+
 		bool Init(GameEngine* game);
+
 		void Update(GameEngine* game, float dt);
 
 		void PlayerMoveDown();
@@ -91,17 +93,17 @@ class Singleplayer : public GameState
 		void PlayerMoveRight();
 		void PlayerStopY();
 		void PlayerStopX();
-		void PlayerHit(float dt, int power, std::vector<Monster>* monsters);
+		
 		bool PlayerDie();
 		int GetPlayerHealth();
 
 		//void Cleanup();
 		void HandleEvents(GameEngine* game);
-		void Restart();
+		void Restart();
 		bool UpdateScore();
 		void setNextStateCallback(std::function<void()> callback)
 	    	{nextStateCallback = callback;};
-		void GameOver();
+		void GameOver();
 		void CheckForGameOver();
 
 		void Shoot();

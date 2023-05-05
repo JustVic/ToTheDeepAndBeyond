@@ -5,6 +5,15 @@
 
 extern int draw;
 
+Singleplayer::Singleplayer()
+{
+}
+
+Singleplayer::~Singleplayer()
+{
+	delete map;
+}
+
 void Singleplayer::Shoot()
 {
 
@@ -42,7 +51,7 @@ bool Singleplayer::Init(GameEngine* game)
 	kiss_window* window = (game->GetRend()->GetWindow());
 	width = game->GetRend()->GetWidth();
 	height = game->GetRend()->GetHeight();
-	cellWidth = game->GetRend()->GetCellWidth();
+	cellWidth = game->GetRend()->GetCellWidth();
 	std::cout << "Width " << width << std::endl;
 	std::cout << "Height " << height << std::endl;
 
@@ -77,8 +86,6 @@ bool Singleplayer::Init(GameEngine* game)
 	player.health = 10;
 	player.sprite = 0;
 	player.speed = cellWidth/26;
-	if(player.speed<1)
-		player.speed = 1;
 	player.direction = 1;
 	player.moveSpeed.x = 0;
 	player.	moveSpeed.y = 0;
