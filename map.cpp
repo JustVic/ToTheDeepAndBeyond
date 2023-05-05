@@ -312,7 +312,9 @@ void Map::ClearLines(int x, int y) {
 	for(auto it=enemies.begin(); it!=enemies.end();)
 	{
 		if((it->GetPositionX()/cellWidth == x)||(it->GetPositionY()/cellWidth == y))
+		{
 			it = enemies.erase(it);
+		}
 		else
 			it++;
 	}

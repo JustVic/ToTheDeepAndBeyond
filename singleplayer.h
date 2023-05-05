@@ -30,6 +30,8 @@ class Singleplayer : public GameState
 	    	    	
 		kiss_button shootButton = {0};
 
+		kiss_button backToMenuButton = {0};
+
 	    	std::string scoreStr;
 
 	    	kiss_label GameOver_Text = {0};
@@ -108,6 +110,7 @@ class Singleplayer : public GameState
 
 		void Shoot();
 		void ButtonShootEvent(kiss_button *button, SDL_Event *e, int *draw, std::function<void()> callback);
+		void BackToMenuButtonEvent(kiss_button *button, SDL_Event *e, int *draw, std::function<void()> callback);
 		void DrawPlayer(std::shared_ptr<RenderManager>& rend);
 		void Draw(GameEngine* game);
 };

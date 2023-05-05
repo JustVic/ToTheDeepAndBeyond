@@ -7,6 +7,7 @@ class Menu : public GameState
 {
 	private:
 		kiss_button buttonStart;
+		kiss_button buttonMultiplayer;
 		kiss_button buttonHighscore;
 		kiss_button buttonExit;
 		SDL_Event event;

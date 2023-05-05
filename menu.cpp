@@ -49,12 +49,15 @@ bool Menu::Init(GameEngine* game)
 
 	kiss_button_new(&buttonStart, window, "Start Game",
                         centerW, centerH-screenHeight/8);
-
-	kiss_button_new(&buttonHighscore, window, "Highscore",
+	
+	kiss_button_new(&buttonMultiplayer, window, "Multiplayer",
                         centerW, centerH);
 
-	kiss_button_new(&buttonExit, window, "Exit",
+	kiss_button_new(&buttonHighscore, window, "Highscore",
                         centerW, centerH+screenHeight/8);
+
+	kiss_button_new(&buttonExit, window, "Exit",
+                        centerW, centerH+screenHeight/4);
 
 	return true;
 }
@@ -72,6 +75,10 @@ void Menu::HandleEvents(GameEngine* game)
 
 	buttonStartEvent(&buttonStart, &event, &draw,
                          std::bind(&GameEngine::ToSinglePlayer, game));
+
+	//buttonMultiplayerEvent(&buttonMultiplayer, &event, &draw,
+       //                  std::bind(&GameEngine::ToSinglePlayer, game));
+
 
 	buttonHighscoreEvent(&buttonHighscore, &event, &draw,
                          std::bind(&GameEngine::ToHighscore, game));
@@ -101,6 +108,8 @@ void Menu::Draw(GameEngine* game)
 	//kiss_window_draw(&(rend->GetWindow()), rend->GetSDLRenderer());
 
 	kiss_button_draw(&buttonStart, game->GetRend()->GetSDLRenderer());
+
+	kiss_button_draw(&buttonMultiplayer, game->GetRend()->GetSDLRenderer());
 
 	kiss_button_draw(&buttonHighscore, game->GetRend()->GetSDLRenderer());
 

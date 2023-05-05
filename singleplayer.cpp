@@ -22,8 +22,6 @@ void Singleplayer::Shoot()
 
 void Singleplayer::ButtonShootEvent(kiss_button *button, SDL_Event *e, int *draw, std::function<void()> callback)
 {
-	
-
 	//if(e->type == SDL_KEYUP)
 	//{
 		//if(e->key.repeat == 0)
@@ -33,17 +31,27 @@ void Singleplayer::ButtonShootEvent(kiss_button *button, SDL_Event *e, int *draw
 					press_duration = press_end - press_start;
 					map->Shoot(&player, press_duration);
 							//distance = press_duration/2;
-					std::cout << "DURATION: " << press_duration << "\n";
-
 				callback();
     			}
 		//}
 	//}
 }
 
+void Singleplayer::BackToMenuButtonEvent(kiss_button *button, SDL_Event *e, int *draw, std::function<void()> callback)
+{
+			if (kiss_button_event(button, e, draw)) {
+					press_end = SDL_GetTicks();
+					press_duration = press_end - press_start;
+					map->Shoot(&player, press_duration);
+							//distance = press_duration/2;
+				callback();
+    			}
+}
+
 bool Singleplayer::Init(GameEngine* game)
 {
 	//kiss_window* window = game->GetWindow();//&(game->GetRend()->window1);
+	
 	blue_texture = game->GetRend()->createTexture("data/quadb.bmp");
 
 	orange_texture = game->GetRend()->createTexture("data/quado.bmp");
@@ -104,7 +112,10 @@ bool Singleplayer::Init(GameEngine* game)
 
 	kiss_button_new(&shootButton, window, "Shoot",
                         width-(width/8), height-(height/8));
-	
+
+	kiss_button_new(&backToMenuButton, window, "BackToMenu",
+                        centerW, centerH+height/6);
+
 	return true;
 }
 
@@ -270,6 +281,11 @@ void Singleplayer::HandleEvents(GameEngine* game)
 
 	ButtonShootEvent(&shootButton, &event, &draw,
                          std::bind(&Singleplayer::Shoot, this));
+
+	if(stop)
+		BackToMenuButtonEvent(&backToMenuButton, &event, &draw,
+                         std::bind(&GameEngine::PopState, game));
+
 	//if(!stop)
 	//{
 		if(SDL_PollEvent(&event) == 1)
@@ -460,7 +476,10 @@ void Singleplayer::HandleEvents(GameEngine* game)
 				if((touchLocation.x>width/2)&&(touchLocation.x>height/2)&&(touchLocation.y<(3*height)/4))
 					this->PlayerMoveRight();
 				if(touchLocation.y>(3*height)/4)
-					this->PlayerMoveDown();
+				{
+					if(!((touchLocation.y>(3*height)/4)&&(touchLocation.x>(3*height)/4)))
+						this->PlayerMoveDown();
+				}
 				if(touchLocation.y<height/2)
 					this->PlayerMoveUp();
 			}
@@ -502,8 +521,13 @@ void Singleplayer::Draw(GameEngine* game)
 	
 	kiss_button_draw(&shootButton, game->GetRend()->GetSDLRenderer());
 
+	
 	if(stop)
+	{
 		kiss_label_draw(&GameOver_Text, game->rend->GetSDLRenderer());
+
+		kiss_button_draw(&backToMenuButton, game->GetRend()->GetSDLRenderer());
+	}
 
     	frame_end = SDL_GetTicks();
     	frame_duration = frame_end - frame_start;
