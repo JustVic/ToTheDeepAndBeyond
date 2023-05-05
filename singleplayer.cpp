@@ -488,22 +488,7 @@ void Singleplayer::HandleEvents(GameEngine* game)
                     //Touch motion
                 else if( event.type == SDL_FINGERMOTION )
                 {
-			if(!stop)
-			{
-                        touchLocation.x = event.tfinger.x * width;
-                        touchLocation.y = event.tfinger.y * height;
-				if((touchLocation.x<width/2)&&(touchLocation.y>height/2)&&(touchLocation.y<(3*height)/4))
-					this->PlayerMoveLeft();
-				if((touchLocation.x>width/2)&&(touchLocation.y>height/2)&&(touchLocation.y<(3*height)/4))
-					this->PlayerMoveRight();
-				if(touchLocation.y>(3*height)/4)
-				{
-					if(!((touchLocation.y>(3*height)/4)&&(touchLocation.x>(3*height)/4)))
-						this->PlayerMoveDown();
-				}
-				if(touchLocation.y<height/2)
-					this->PlayerMoveUp();
-			}
+
 
                 }
                     //Touch release
