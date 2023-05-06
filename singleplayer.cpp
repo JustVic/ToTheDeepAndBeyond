@@ -423,10 +423,16 @@ void Singleplayer::HandleEvents(GameEngine* game)
 			case SDL_MOUSEBUTTONDOWN:
 				if(event.key.repeat == 0)
 				{
-					//this->Shoot();
 					press_start = SDL_GetTicks();
 				}
 				break;
+			case SDL_FINGERDOWN:
+				if(event.key.repeat == 0)
+				{
+					press_start = SDL_GetTicks();
+				}
+				break;
+
 
 			case SDL_TEXTINPUT:
 				break;
@@ -477,7 +483,7 @@ void Singleplayer::HandleEvents(GameEngine* game)
 					this->PlayerMoveRight();
 				if(touchLocation.y>(3*height)/4)
 				{
-					if(!((touchLocation.y>(3*height)/4)&&(touchLocation.x>(3*height)/4)))
+					if(!((touchLocation.y>(3*height)/4)&&(touchLocation.x>(3*width)/4)))
 						this->PlayerMoveDown();
 				}
 				if(touchLocation.y<height/2)
